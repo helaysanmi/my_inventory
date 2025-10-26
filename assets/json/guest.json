@@ -1,0 +1,25 @@
+{
+  "eventId": "evt_123",
+  "eventName": "John's Birthday Bash",
+  "eventDate": "2025-09-01T18:00:00Z",
+  "hostName": "John Doe",
+  "guest": {
+    "guestId": "g_456",
+    "guestName": "Samuel Ogunsote",
+    "rsvpStatus": "pending",
+    "eventActivities": [
+      {
+        "activityName": "Food",
+        "activityOptions": ["Jollof Rice", "Fried Rice", "Shawarma"],
+        "activityMultiChoice": false,
+        "selectedOptions": ["Fried Rice"]
+      },
+      {
+        "activityName": "Games",
+        "activityOptions": ["Treasure Hunt", "Karaoke", "Dance Contest"],
+        "activityMultiChoice": true,
+        "selectedOptions": ["Karaoke"]
+      }
+    ]
+  }
+}

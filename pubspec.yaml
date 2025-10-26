@@ -1,0 +1,63 @@
+name: my_inventory
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  sqflite: ^2.3.3
+  path: ^1.9.0
+  get: ^4.6.5
+  iconsax: ^0.0.8
+  heroicons: ^0.9.0
+  intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
+  smooth_page_indicator: ^1.1.0
+  shared_preferences: ^2.3.1
+  image_picker: ^1.2.0
+  lottie: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/logos/icon_logo.png"
+  min_sdk_android: 21
+
+flutter:
+  uses-material-design: true
+
+
+#--------------- LOCAL ASSETS ------------------#
+  assets:
+    - assets/logos/
+    - assets/json/
+    - assets/images/content/
+    - assets/images/on_boarding_images/
+
+  #--------------- LOCAL FONTS ------------------#
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/Urbanist-Bold.ttf
+        - asset: assets/fonts/Urbanist-ExtraBold.ttf
+        - asset: assets/fonts/Urbanist-ExtraLight.ttf
+        - asset: assets/fonts/Urbanist-Light.ttf
+        - asset: assets/fonts/Urbanist-Medium.ttf
+        - asset: assets/fonts/Urbanist-Regular.ttf
+        - asset: assets/fonts/Urbanist-SemiBold.ttf
+        - asset: assets/fonts/Urbanist-Thin.ttf
+
+
+
