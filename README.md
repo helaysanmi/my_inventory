@@ -47,4 +47,5 @@ Local Storage	:SharedPreferences
 🧩 Relevant Links
 
 appetize: https://appetize.io/app/b_25psh5dlo4y62gqodqejy57gke
-gitHub :
+gitHub : https://github.com/helaysanmi/my_inventory
+Walkthrough Video : https://drive.google.com/drive/folders/1hYPFmu6i-_uKvF3lSSNzvEZP8N97H4kg?usp=drive_link
