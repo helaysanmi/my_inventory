@@ -225,7 +225,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: TSizes.sm / 2),
               Text(
-                'Let’s Get You Started With Vibe Planner',
+                'Let’s Get You Started With My Inventory',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
