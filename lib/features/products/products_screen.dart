@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:my_inventory/common/circular_progress/circular_progress.dart';
 import 'package:my_inventory/features/products/add_new_product.dart';
 import 'package:my_inventory/features/products/model/product_model.dart';
+import 'package:my_inventory/features/products/product_details.dart';
 import 'package:my_inventory/features/products/widget/product_container.dart';
 import 'package:my_inventory/utils/constants/colors.dart';
 import 'package:my_inventory/utils/constants/sizes.dart';
@@ -64,87 +65,108 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Products',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        centerTitle: true,
-        backgroundColor: dark ? TColors.black : TColors.white,
-      ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child:
-                isLoading
-                    ? const Center(child: CircularProgress())
-                    : productList.isEmpty
-                    ? _buildEmptyState()
-                    : RefreshIndicator(
-                      onRefresh: _fetchProductFromLocalServer,
-                      child: ListView.builder(
-                        itemCount: productList.length,
-                        itemBuilder: (context, index) {
-                          final item = productList[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: TSizes.spaceBtwItems,
-                            ),
-                            child: ProductContainer(
-                              productAmount: item.productAmount,
-                              productQuantity: item.productQuantity,
-                              productName: item.productName,
-                              productImage: item.productImage,
-                              productId: item.productId!,
-                              addedBy: item.addedBy,
-                              userId: item.userId,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Products',
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
-
-          Positioned(
-            bottom: TSizes.defaultSpace,
-            right: TSizes.defaultSpace,
-            child: GestureDetector(
-              onTap: () async {
-                await Get.to(
-                  () => AddNewProduct(userId: userId, addedBy: businessName),
-                );
-                _fetchProductFromLocalServer();
-              },
-              child: Container(
-                height: 60,
-
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  gradient: const LinearGradient(
-                    colors: [TColors.primary, TColors.secondary],
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(TSizes.spaceBtwItems),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Add Product',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.apply(color: TColors.white),
+          centerTitle: true,
+          backgroundColor: dark ? TColors.black : TColors.white,
+        ),
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child:
+                  isLoading
+                      ? const Center(child: CircularProgress())
+                      : productList.isEmpty
+                      ? _buildEmptyState()
+                      : RefreshIndicator(
+                        onRefresh: _fetchProductFromLocalServer,
+                        child: ListView.builder(
+                          itemCount: productList.length,
+                          itemBuilder: (context, index) {
+                            final item = productList[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: TSizes.spaceBtwItems,
+                              ),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  await Get.to(
+                                    () => ProductDetailsScreen(
+                                      productId: item.productId!,
+                                      productQuantity: item.productQuantity,
+                                      productImage: item.productImage,
+                                      productName: item.productName,
+                                      productAmount: item.productAmount,
+                                      addedBy: item.addedBy,
+                                      userId: userId!,
+                                    ),
+                                  );
+                                  _fetchProductFromLocalServer();
+                                },
+                                child: ProductContainer(
+                                  productAmount: item.productAmount,
+                                  productQuantity: item.productQuantity,
+                                  productName: item.productName,
+                                  productImage: item.productImage,
+                                  productId: item.productId!,
+                                  addedBy: item.addedBy,
+                                  userId: item.userId,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                      Icon(Iconsax.add, size: 32, color: TColors.white),
-                    ],
+            ),
+
+            Positioned(
+              bottom: TSizes.defaultSpace,
+              right: TSizes.defaultSpace,
+              child: GestureDetector(
+                onTap: () async {
+                  await Get.to(
+                    () => AddNewProduct(userId: userId, addedBy: businessName),
+                  );
+                  _fetchProductFromLocalServer();
+                },
+                child: Container(
+                  height: 60,
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    gradient: const LinearGradient(
+                      colors: [TColors.primary, TColors.secondary],
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(TSizes.spaceBtwItems),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Add Product',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.apply(color: TColors.white),
+                        ),
+                        Icon(Iconsax.add, size: 32, color: TColors.white),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

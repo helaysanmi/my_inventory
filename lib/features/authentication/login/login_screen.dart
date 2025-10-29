@@ -147,115 +147,113 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              'Login',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            centerTitle: true,
-            backgroundColor: dark ? TColors.black : TColors.white,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Login',
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Well, Look Who’s Back!👋',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  SizedBox(height: TSizes.sm / 2),
-                  Text(
-                    'Let’s get you right where you left off.',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  //email Header
-                  Text('Email', style: Theme.of(context).textTheme.bodyLarge),
-                  const SizedBox(height: TSizes.spaceBtwInputFields / 2),
-                  //Fullname text input
-                  TextInputField(
-                    controller: emailController,
-                    hintText: 'Enter your email address',
-                    prefixIcon: Icon(Icons.mail),
-                  ),
+          centerTitle: true,
+          backgroundColor: dark ? TColors.black : TColors.white,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Well, Look Who’s Back!👋',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                SizedBox(height: TSizes.sm / 2),
+                Text(
+                  'Let’s get you right where you left off.',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: TSizes.spaceBtwSections),
+                //email Header
+                Text('Email', style: Theme.of(context).textTheme.bodyLarge),
+                const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+                //Fullname text input
+                TextInputField(
+                  controller: emailController,
+                  hintText: 'Enter your email address',
+                  prefixIcon: Icon(Icons.mail),
+                ),
 
-                  if (emailError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
+                if (emailError != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Text(
+                      emailError!,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelLarge!.apply(color: TColors.error),
+                    ),
+                  ),
+                const SizedBox(height: TSizes.spaceBtwInputFields),
+                //password Header
+                Text('Password', style: Theme.of(context).textTheme.bodyLarge),
+                const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+                //password text input
+                PasswordTextField(
+                  controller: passwordController,
+                  hintText: 'Enter your password',
+                  focusNode: passwordFocusNode,
+                ),
+
+                if (passwordError != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Text(
+                      passwordError!,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelLarge!.apply(color: TColors.error),
+                    ),
+                  ),
+                const SizedBox(height: TSizes.sm),
+
+                const SizedBox(height: TSizes.spaceBtwSections),
+                isLoading
+                    ? CircularProgress()
+                    : RegularButton(
+                      text: 'Sign In Using Password',
+                      onPressed: isEnabled ? login : null,
+                      enabled: isEnabled,
+                    ),
+
+                const SizedBox(height: TSizes.spaceBtwSections),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'New To My Inventory? ',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.to(() => const SignupScreen()),
                       child: Text(
-                        emailError!,
+                        'Register Now',
                         style: Theme.of(
                           context,
-                        ).textTheme.labelLarge!.apply(color: TColors.error),
+                        ).textTheme.bodyLarge!.apply(color: TColors.primary),
                       ),
                     ),
-                  const SizedBox(height: TSizes.spaceBtwInputFields),
-                  //password Header
-                  Text(
-                    'Password',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwInputFields / 2),
-                  //password text input
-                  PasswordTextField(
-                    controller: passwordController,
-                    hintText: 'Enter your password',
-                    focusNode: passwordFocusNode,
-                  ),
-
-                  if (passwordError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        passwordError!,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge!.apply(color: TColors.error),
-                      ),
-                    ),
-                  const SizedBox(height: TSizes.sm),
-
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  isLoading
-                      ? CircularProgress()
-                      : RegularButton(
-                        text: 'Sign In Using Password',
-                        onPressed: isEnabled ? login : null,
-                        enabled: isEnabled,
-                      ),
-
-                  const SizedBox(height: TSizes.spaceBtwSections),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'New To My Inventory? ',
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      GestureDetector(
-                        onTap: () => Get.to(() => const SignupScreen()),
-                        child: Text(
-                          'Register Now',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyLarge!.apply(color: TColors.primary),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

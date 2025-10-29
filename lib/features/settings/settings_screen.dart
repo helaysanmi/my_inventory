@@ -43,46 +43,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Settings',
-          style: Theme.of(context).textTheme.headlineMedium,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Settings',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          centerTitle: true,
+          backgroundColor: dark ? TColors.black : TColors.white,
+          automaticallyImplyLeading: false,
         ),
-        centerTitle: true,
-        backgroundColor: dark ? TColors.black : TColors.white,
-        automaticallyImplyLeading: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: Column(
-          children: [
-            ProfileHeader(user: businessName ?? ''),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            ProfileContainer(
-              content: Column(
-                children: [
-                  CategoryDetails(
-                    text: 'Term of Use',
-                    color: TColors.primary,
-                    icon: Iconsax.logout,
-                    onTap: () {},
-                  ),
-                  const SizedBox(height: TSizes.sm),
-                  Divider(thickness: 2),
-                  const SizedBox(height: TSizes.sm),
-                  CategoryDetails(
-                    text: 'Log Out',
-                    color: TColors.error,
-                    icon: Iconsax.logout,
-                    onTap: () {
-                      _showLogoutDialog(context);
-                    },
-                  ),
-                ],
+        body: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            children: [
+              ProfileHeader(user: businessName ?? ''),
+              const SizedBox(height: TSizes.spaceBtwSections),
+              ProfileContainer(
+                content: Column(
+                  children: [
+                    CategoryDetails(
+                      text: 'Term of Use',
+                      color: TColors.primary,
+                      icon: Iconsax.logout,
+                      onTap: () {},
+                    ),
+                    const SizedBox(height: TSizes.sm),
+                    Divider(thickness: 2),
+                    const SizedBox(height: TSizes.sm),
+                    CategoryDetails(
+                      text: 'Log Out',
+                      color: TColors.error,
+                      icon: Iconsax.logout,
+                      onTap: () {
+                        _showLogoutDialog(context);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
