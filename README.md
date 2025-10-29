@@ -32,3 +32,11 @@ All user and product data is stored locally using sqflite, so it works offline.
 🌓 Dark & Light Mode Support
 
 The app dynamically switches themes based on system preferences.
+
+LINKS
+
+GOOGLE DRIVE : https://drive.google.com/drive/folders/1hYPFmu6i-_uKvF3lSSNzvEZP8N97H4kg?usp=drive_link
+
+APPETIZE : https://appetize.io/app/b_hcxcwksdmxfnkfpvlthatcxmsa
+
+GIT : https://github.com/helaysanmi/my_inventory
